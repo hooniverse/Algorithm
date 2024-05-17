@@ -1,19 +1,19 @@
-from itertools import combinations
-import sys
-input = sys.stdin.readline
+def recur(index,dan,jjan,use):
+    global answer
+    if index == n:
+        if use ==0:
+            return
+        result = abs(dan-jjan)
+        answer = min(answer, result)
+        return
+    recur(index + 1, dan + ingre[index][1], jjan*ingre[index][0],use+1)
+    recur(index + 1 ,dan, jjan, use)
 
 n = int(input())
-arr = [list(map(int,input().split(" "))) for _ in range(n)]
-comb = [combinations(arr, i) for i in range(1, n+1)]
 
-result = sys.maxsize
+ingre = [list(map(int, input().split())) for _ in range(n)]
+answer = 99999999999999
 
+recur(0,0,1,0)
 
-for com in comb:
-    for a in com:
-        sour, bitter = 1, 0
-        for s, b in a:
-            sour *= s
-            bitter += b
-        result = min(result, abs(sour-bitter))
-print(result)
+print(answer)
